@@ -1,13 +1,14 @@
-export class CreateUserDto {
-    name :string;
-    email : string;
-    role : "ADMIN" | "ENGINEER" | "INTERN";
-}
+import { IsEmail, IsEnum, IsString, IsNotEmpty } from "class-validator";
 
-// update the CreateUserDto to ensure the correct casing for "ENGINEER"
-// export class CreateUserDto {
-//     name: string;
-//     email: string;
-//     role: "ADMIN" | "INTERN" | "ENGINEER";
-//   }
-  
+export class CreateUserDto {
+
+  @IsNotEmpty ()
+  @IsString()
+  name: string;
+
+  @IsEmail()
+  email: string;
+
+  @IsEnum(['ADMIN' , 'ENGINEER' , 'INTERN'], {message : "Valid role required"})
+  role: 'ADMIN' | 'ENGINEER' | 'INTERN';
+}
